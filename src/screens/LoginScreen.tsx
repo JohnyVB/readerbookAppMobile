@@ -1,10 +1,25 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppLogo } from '../components/AppLogo';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { loginStyles } from '../theme/LoginTheme';
+import { useForm } from '../hooks/useForm';
+import { StackScreenProps } from '@react-navigation/stack';
 
-export const LoginScreen = () => {
+interface Props extends StackScreenProps<any, any>{};
+
+export const LoginScreen = ({ navigation }: Props) => {
+
+    const {email, password, onChangeForm} = useForm({
+        email: '',
+        password: ''
+    });
+
+    const onLogin = () => {
+        console.log({email, password});
+        Keyboard.dismiss();
+    }
+
     return (
         <>  
             {/* Background */}
@@ -18,7 +33,7 @@ export const LoginScreen = () => {
                 <Text style={loginStyles.title}>Login</Text>
 
                 {/* Input email */}
-                <Text style={loginStyles.label}>Email</Text>
+                <Text style={loginStyles.label}>Correo</Text>
                 <TextInput
                     placeholder="Ingrese su email"
                     keyboardType="email-address"
@@ -27,19 +42,24 @@ export const LoginScreen = () => {
                     style={loginStyles.inputField}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    //TODO: onchage, value
+                    onChangeText={(value) => onChangeForm(value, 'email')}
+                    value={email}
+                    onSubmitEditing={onLogin}
                 />
                 
                 {/* Input password */}
-                <Text style={loginStyles.label}>Password</Text>
+                <Text style={loginStyles.label}>Contraseña</Text>
                 <TextInput
                     placeholder="**********"
                     placeholderTextColor="#3B688C"
                     underlineColorAndroid="#3B688C"
+                    secureTextEntry
                     style={loginStyles.inputField}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    //TODO: onchage, value
+                    onChangeText={(value) => onChangeForm(value, 'password')}
+                    value={password}
+                    onSubmitEditing={onLogin}
                 />
                 
                 {/* Button login */}
@@ -47,8 +67,9 @@ export const LoginScreen = () => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={loginStyles.btn}
+                        onPress={onLogin}
                     >
-                        <Text style={loginStyles.btnText}>Login</Text>
+                        <Text style={loginStyles.btnText}>LogIn</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -57,8 +78,9 @@ export const LoginScreen = () => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={loginStyles.btn}
+                        onPress={() => navigation.replace('RegisterScreen')}
                     >
-                        <Text style={loginStyles.btnText}>Register</Text>
+                        <Text style={loginStyles.btnText}>Nueva cuenta</Text>
                     </TouchableOpacity>
                 </View>
             </View>

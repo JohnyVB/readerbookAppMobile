@@ -43,5 +43,14 @@ export const loginStyles = StyleSheet.create({
     btnRegisterContainer: {
         alignItems: 'flex-end',
         marginTop: 50
+    },
+    btnReturn: {
+        position: 'absolute',
+        top: -630,
+        left: 5,
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3B688C',
     }
 });
