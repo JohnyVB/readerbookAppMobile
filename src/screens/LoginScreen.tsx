@@ -1,14 +1,17 @@
-import React from 'react';
-import { Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { Alert, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppLogo } from '../components/AppLogo';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { loginStyles } from '../theme/LoginTheme';
 import { useForm } from '../hooks/useForm';
 import { StackScreenProps } from '@react-navigation/stack';
+import { AuthContext } from '../context/auth/AuthContext';
 
 interface Props extends StackScreenProps<any, any>{};
 
 export const LoginScreen = ({ navigation }: Props) => {
+
+    const {singIn, removeError, errorMessage, status} = useContext(AuthContext);
 
     const {email, password, onChangeForm} = useForm({
         email: '',
@@ -16,9 +19,31 @@ export const LoginScreen = ({ navigation }: Props) => {
     });
 
     const onLogin = () => {
-        console.log({email, password});
+        singIn({email, password});
         Keyboard.dismiss();
     }
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            navigation.replace('HomeScreen');
+        }
+    }, [status]);
+
+    useEffect(() => {
+        if (errorMessage.length > 0) {
+            Alert.alert(
+              'Login incorrecto', 
+              errorMessage,
+              [
+                  {
+                      text: 'Ok',
+                      onPress: removeError
+                  }
+              ]
+            );
+          return;  
+        }
+    }, [errorMessage])
 
     return (
         <>  

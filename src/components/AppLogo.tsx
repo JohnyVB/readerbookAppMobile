@@ -20,4 +20,5 @@ export const AppLogo = () => {
 }
 
 
-//colores logo: #3B688C #3A3E40 #CC3D3D #FFFFFF
+// colores logo: #3B688C #3A3E40 #CC3D3D #FFFFFF
+// Background color: #FFC107
