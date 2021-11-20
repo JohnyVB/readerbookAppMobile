@@ -33,26 +33,40 @@ export const AuthProvider = ({children}: PropsProvider) => {
     }, []);
 
     const getToken = async() => {
-        const token = await AsyncStorage.getItem('x-token');
+        
+        try {
 
-        if (!token){
-            return dispatch({type:'noAuthenticated'});
-        }
+            const token = await AsyncStorage.getItem('x-token');
 
-        const {data, status} = await lectorApi.get<UserResponse>('/auth/renewtoken');
-
-        if (status !== 200) {
-            return dispatch({type: 'noAuthenticated'});
-        }
-
-        dispatch({
-            type: 'signUp',
-            payload: {
-                token: data.token,
-                user: data.usuario
+            if (!token){
+                return dispatch({type:'noAuthenticated'});
             }
-        });
 
+            const {data, status} = await lectorApi.get<UserResponse>('/auth/renewtoken');
+
+            if (status !== 200) {
+                return dispatch({type: 'noAuthenticated'});
+            }
+    
+            await AsyncStorage.setItem('x-token', data.token);
+    
+            dispatch({
+                type: 'signUp',
+                payload: {
+                    token: data.token,
+                    user: data.usuario
+                }
+            });
+
+        } catch (error: any) {
+            console.log(error);
+            console.log(error.response.data.msg);
+            if (error.response.data.msg === 'jwt expired') {
+                await AsyncStorage.clear(); //Elimina el token vencido
+            }
+            dispatch({type: 'noAuthenticated'});
+        }
+        
     }
 
     const singIn = async({email, password}: LoginData) => {
@@ -68,7 +82,7 @@ export const AuthProvider = ({children}: PropsProvider) => {
 
             await AsyncStorage.setItem('x-token', data.token);
 
-        } catch (error: any) {
+        } catch (error: any) {            
             console.log(error.response.data.msg);
             dispatch({
                 type: 'addError',

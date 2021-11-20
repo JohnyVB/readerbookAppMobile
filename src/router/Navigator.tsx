@@ -27,11 +27,19 @@ export const Navigator = () => {
             }
         }}
     >
+
+      {
+        (status === 'authenticated')
+          ? (
+              <Stack.Screen name="HomeScreen" component={HomeScreen} />  
+          ) : (
+            <>
+              <Stack.Screen name="LoginScreen" component={LoginScreen} />
+              <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+            </>
+          )
+      }
       
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-  
     </Stack.Navigator>
   );
 }
