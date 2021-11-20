@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from '../screens/HomeScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { AuthContext } from '../context/auth/AuthContext';
 import { LoadingScreen } from '../screens/LoadingScreen';
+import { HomeDrawer } from './HomeDrawer';
 
 const Stack = createStackNavigator();
 
@@ -31,7 +31,7 @@ export const Navigator = () => {
       {
         (status === 'authenticated')
           ? (
-              <Stack.Screen name="HomeScreen" component={HomeScreen} />  
+              <Stack.Screen name="HomeDrawer" component={HomeDrawer} />  
           ) : (
             <>
               <Stack.Screen name="LoginScreen" component={LoginScreen} />

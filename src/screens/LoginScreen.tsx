@@ -11,7 +11,7 @@ interface Props extends StackScreenProps<any, any>{};
 
 export const LoginScreen = ({ navigation }: Props) => {
 
-    const {singIn, removeError, errorMessage, status} = useContext(AuthContext);
+    const {singIn, removeError, errorMessage} = useContext(AuthContext);
 
     const {email, password, onChangeForm} = useForm({
         email: '',
@@ -22,12 +22,6 @@ export const LoginScreen = ({ navigation }: Props) => {
         singIn({email, password});
         Keyboard.dismiss();
     }
-
-    useEffect(() => {
-        if (status === 'authenticated') {
-            navigation.replace('HomeScreen');
-        }
-    }, [status]);
 
     useEffect(() => {
         if (errorMessage.length > 0) {
