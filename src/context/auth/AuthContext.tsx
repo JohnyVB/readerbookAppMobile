@@ -37,12 +37,12 @@ export const AuthProvider = ({children}: PropsProvider) => {
         try {
 
             const token = await AsyncStorage.getItem('x-token');
-
+            
             if (!token){
                 return dispatch({type:'noAuthenticated'});
             }
 
-            const {data, status} = await lectorApi.get<UserResponse>('/auth/renewtoken');
+            const {data, status} = await lectorApi.get<UserResponse>('/auth/renewtoken');            
 
             if (status !== 200) {
                 return dispatch({type: 'noAuthenticated'});
@@ -60,10 +60,8 @@ export const AuthProvider = ({children}: PropsProvider) => {
 
         } catch (error: any) {
             console.log(error);
-            console.log(error.response.data.msg);
-            if (error.response.data.msg === 'jwt expired') {
-                await AsyncStorage.clear(); //Elimina el token vencido
-            }
+            console.log(error?.response?.data?.msg);
+            await AsyncStorage.clear();
             dispatch({type: 'noAuthenticated'});
         }
         
@@ -72,6 +70,7 @@ export const AuthProvider = ({children}: PropsProvider) => {
     const singIn = async({email, password}: LoginData) => {
         try {
             const {data} = await lectorApi.post<UserResponse>('/auth/login', {email, password});
+            
             dispatch({
                 type: 'signUp',
                 payload: {
@@ -82,17 +81,21 @@ export const AuthProvider = ({children}: PropsProvider) => {
 
             await AsyncStorage.setItem('x-token', data.token);
 
-        } catch (error: any) {            
-            console.log(error.response.data.msg);
+        } catch (error: any) {
+            console.log(error);            
+            console.log(error?.response?.data?.msg);
             dispatch({
                 type: 'addError',
-                payload: error.response.data.msg || 'Información incorrecta'
+                payload: 'Información incorrecta'
             });  
         }
     };
 
     const singUp = () => {};
-    const logOut = () => {};
+    const logOut = async () => {
+        dispatch({type: 'logOut'});
+        await AsyncStorage.removeItem('x-token');
+    };
     const removeError = () => {
         dispatch({type: 'removeError'});
     };
