@@ -8,6 +8,9 @@ export const loginStyles = StyleSheet.create({
         height: 600,
         marginBottom: 110
     },
+    containerTitle: {
+        alignItems: 'center'
+    },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
@@ -27,6 +30,8 @@ export const loginStyles = StyleSheet.create({
         opacity: 0.7
     },
     btnLoginContainer:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 50
     },
@@ -35,6 +40,12 @@ export const loginStyles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 5,
         backgroundColor: '#3B688C'
+    },
+    btnNew: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3A3E40'
     },
     btnText: {
         fontSize: 20,
@@ -45,12 +56,9 @@ export const loginStyles = StyleSheet.create({
         marginTop: 50
     },
     btnReturn: {
-        position: 'absolute',
-        top: -630,
-        left: 5,
         paddingHorizontal: 20,
         paddingVertical: 5,
         borderRadius: 5,
-        backgroundColor: '#3B688C',
+        backgroundColor: '#CC3D3D',
     }
 });

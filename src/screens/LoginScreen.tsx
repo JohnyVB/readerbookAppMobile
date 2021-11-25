@@ -49,7 +49,9 @@ export const LoginScreen = ({ navigation }: Props) => {
                 <AppLogo />
 
                 {/* Title */}
-                <Text style={loginStyles.title}>Login</Text>
+                <View style={loginStyles.containerTitle}>
+                    <Text style={loginStyles.title}>Login</Text>
+                </View>
 
                 {/* Input email */}
                 <Text style={loginStyles.label}>Correo</Text>
@@ -81,26 +83,27 @@ export const LoginScreen = ({ navigation }: Props) => {
                     onSubmitEditing={onLogin}
                 />
                 
-                {/* Button login */}
+                {/* Button login and register */}
                 <View style={loginStyles.btnLoginContainer}>
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={loginStyles.btn}
                         onPress={onLogin}
                     >
-                        <Text style={loginStyles.btnText}>LogIn</Text>
+                        <Text style={loginStyles.btnText}>Ingresar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={loginStyles.btnNew}
+                        onPress={() => navigation.replace('RegisterScreen')}
+                    >
+                        <Text style={loginStyles.btnText}>Nueva cuenta</Text>
                     </TouchableOpacity>
                 </View>
 
                 {/* Link register */}
                 <View style={loginStyles.btnRegisterContainer}>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={loginStyles.btn}
-                        onPress={() => navigation.replace('RegisterScreen')}
-                    >
-                        <Text style={loginStyles.btnText}>Nueva cuenta</Text>
-                    </TouchableOpacity>
+                    
                 </View>
             </View>
         </>

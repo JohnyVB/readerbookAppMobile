@@ -5,6 +5,7 @@ import { RegisterScreen } from '../screens/RegisterScreen';
 import { AuthContext } from '../context/auth/AuthContext';
 import { LoadingScreen } from '../screens/LoadingScreen';
 import { HomeDrawer } from './HomeDrawer';
+import { ActivatorScreen } from '../screens/ActivatorScreen';
 
 const Stack = createStackNavigator();
 
@@ -31,13 +32,16 @@ export const Navigator = () => {
       {
         (status === 'authenticated')
           ? (
-              <Stack.Screen name="HomeDrawer" component={HomeDrawer} />  
-          ) : (
-            <>
-              <Stack.Screen name="LoginScreen" component={LoginScreen} />
-              <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-            </>
-          )
+              <Stack.Screen name="HomeDrawer" component={HomeDrawer} /> // si esta autenticado  
+          ) : (status === 'activation')
+            ? (
+              <Stack.Screen name="ActivatorScreen" component={ActivatorScreen} /> // Si esta validando con codigo enviado al correo
+            ) : (
+              <>
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen name="RegisterScreen" component={RegisterScreen} />  
+              </>
+            )          
       }
       
     </Stack.Navigator>

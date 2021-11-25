@@ -1,10 +1,11 @@
 import { Usuario } from "../../interfaces/AppInterfaces";
 
 export interface AuthState {
-    status: 'checking' | 'authenticated' | 'no-authenticated';
+    status: 'checking' | 'authenticated' | 'no-authenticated' | 'activation';
     token: string | null;
     errorMessage: string;
     user: Usuario | null;
+    email: string;
 }
 
 type AuthAction = 
@@ -13,6 +14,7 @@ type AuthAction =
     | {type: 'removeError'}
     | {type: 'noAuthenticated'}
     | {type: 'logOut'}
+    | {type: 'activation', payload: {email: string}}
 
 
 export const AuthReducer = (state: AuthState, action: AuthAction): AuthState => {
@@ -24,7 +26,8 @@ export const AuthReducer = (state: AuthState, action: AuthAction): AuthState => 
                 errorMessage: action.payload,
                 user: null,
                 token: null,
-                status: 'no-authenticated'
+                status: 'no-authenticated',
+                email: ''
             }
 
         case 'removeError':
@@ -39,7 +42,8 @@ export const AuthReducer = (state: AuthState, action: AuthAction): AuthState => 
                 errorMessage: '',
                 status: 'authenticated',
                 token: action.payload.token,
-                user: action.payload.user
+                user: action.payload.user,
+                email: ''
             }
         
         case 'logOut':
@@ -48,7 +52,17 @@ export const AuthReducer = (state: AuthState, action: AuthAction): AuthState => 
                 ...state,
                 status: 'no-authenticated',
                 token: null,
-                user: null
+                user: null,
+                email: ''
+            }
+
+        case 'activation':
+            return {
+                ...state,
+                status: 'activation',
+                token: null,
+                user: null,
+                email: action.payload.email
             }
     
         default:

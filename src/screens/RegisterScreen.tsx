@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppLogo } from '../components/AppLogo';
 import { useForm } from '../hooks/useForm';
 import { loginStyles } from '../theme/LoginTheme';
 import { BackgroundLogin } from '../components/BackgroundLogin';
+import { AuthContext } from '../context/auth/AuthContext';
 
 interface Props extends StackScreenProps<any, any>{};
 
 export const RegisterScreen = ({ navigation }: Props) => {
 
-    const {name, lastname, email, password, onChangeForm} = useForm({
+    const [isCreating, setIsCreating] = useState(false);
+
+    const {singUp, status} = useContext(AuthContext);
+
+    const {name, lastname, email, password, cpassword, onChangeForm} = useForm({
         name: '',
         lastname: '',
         email: '',
-        password: ''
+        password: '',
+        cpassword: ''
     });
 
     const onRegister = () => {
-        console.log({name, lastname, email, password});
-        Keyboard.dismiss();
+        setIsCreating(true);
+        if (password !== cpassword) {
+            Alert.alert(
+                'Error con las contraseñas',
+                'Las contraseñas no coinciden, por favor verificar'
+            );
+            Keyboard.dismiss();
+            setIsCreating(false);
+        }else{
+            singUp({name, lastname, email, password});
+            Keyboard.dismiss();
+            if (status !== 'activation' && status !== 'authenticated') {
+                setIsCreating(false);
+            }
+        }
+        // console.log({name, lastname, email, password});
     }
 
     return (
@@ -35,7 +55,9 @@ export const RegisterScreen = ({ navigation }: Props) => {
                     <AppLogo />
 
                     {/* Title */}
-                    <Text style={loginStyles.title}>Registro</Text>
+                    <View style={loginStyles.containerTitle}>
+                        <Text style={loginStyles.title}>Registro</Text>
+                    </View>
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <View style={{flex: 1, marginRight: 5}}>
@@ -102,30 +124,48 @@ export const RegisterScreen = ({ navigation }: Props) => {
                         value={password}
                         onSubmitEditing={onRegister}
                     />
+
+                    {/* Confirm password */}
+                    <Text style={loginStyles.label}>Confirmar contraseña</Text>
+                    <TextInput
+                        placeholder="**********"
+                        placeholderTextColor="#3B688C"
+                        underlineColorAndroid="#3B688C"
+                        secureTextEntry
+                        style={loginStyles.inputField}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeText={(value) => onChangeForm(value, 'cpassword')}
+                        value={cpassword}
+                        onSubmitEditing={onRegister}
+                    />
                     
-                    {/* Button crear cuenta */}
+                    {/* Button crear cuenta y cancelar */}
                     <View style={loginStyles.btnLoginContainer}>
                         <TouchableOpacity
+                            // disabled={true}
                             activeOpacity={0.8}
                             style={loginStyles.btn}
                             onPress={onRegister}
                         >
-                            <Text style={loginStyles.btnText}>Crear</Text>
+                            {
+                                (isCreating)
+                                    ? <ActivityIndicator size={20} color="white" />
+                                    : <Text style={loginStyles.btnText}>Crear</Text>
+                                    
+                            }
+                            
                         </TouchableOpacity>
-                    </View>
 
-                    {/* Regresar al login */}
-
-                    <View>
                         <TouchableOpacity
                             activeOpacity={0.8}
                             style={loginStyles.btnReturn}
                             onPress={() => navigation.replace('LoginScreen')}
                         >
-                            <Text style={loginStyles.btnText}>Login</Text>
+                            <Text style={loginStyles.btnText}>Cancelar</Text>
                         </TouchableOpacity>
                     </View>
-
+                 
 
                 </View>
             </KeyboardAvoidingView>
