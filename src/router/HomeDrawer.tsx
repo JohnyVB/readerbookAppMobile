@@ -6,6 +6,8 @@ import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import { AuthContext } from '../context/auth/AuthContext';
 import { ListScreen } from '../screens/ListScreen';
 import { drawerstyles } from '../theme/DrawerTheme';
+import { BooksScreen } from '../screens/BooksScreen';
+import { SearchScreen } from '../screens/SearchScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,6 +23,8 @@ export const HomeDrawer =() => {
         <Drawer.Screen name="HomeScreen" component={HomeScreen} />
         <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
         <Drawer.Screen name="ListScreen" component={ListScreen} />
+        <Drawer.Screen name="BooksScreen" component={BooksScreen} />
+        <Drawer.Screen name="SearchScreen" component={SearchScreen} />
     </Drawer.Navigator>
   );
 }
