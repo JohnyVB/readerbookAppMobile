@@ -8,6 +8,7 @@ import { BackgroundLogin } from '../components/BackgroundLogin';
 import { BooksScreen } from './BooksScreen';
 import { SearchScreen } from './SearchScreen';
 import { BooksListChapterScreen } from './BooksListChapterScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props extends DrawerScreenProps<any, any>{};
 
@@ -66,26 +67,15 @@ export const HomeScreen = ({navigation}: Props) => {
                 </TouchableOpacity>
             </View>
 
-            {/* <View style={homeStyles.viewContainer}>
-                {
-                    (!searchScreen)
-                        ? (
-                            <>
-                                <BooksScreen />
-                                <BooksListChapterScreen />
-                            </>
-                        )
-                        : <SearchScreen searchString={searchString} setSearchScreen={setSearchScreen} />
-                }
-            </View> */}
-
             <View style={homeStyles.buttonsContainer}>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={homeStyles.buttonBook}
                     onPress={() => setSearchScreen('home')}
                 >
-                    <Text style={homeStyles.btnText}>B Recientes</Text>
+                    <Text style={homeStyles.btnText}>
+                        <Icon name="library-outline" color="white" size={20} />
+                    </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -93,7 +83,9 @@ export const HomeScreen = ({navigation}: Props) => {
                     style={homeStyles.buttonBook}
                     onPress={() => setSearchScreen('chapter')}
                 >
-                    <Text style={homeStyles.btnText}>C Recientes</Text>
+                    <Text style={homeStyles.btnText}>
+                        <Icon name="book-outline" color="white" size={20} />
+                    </Text>
                 </TouchableOpacity>
             </View>
 

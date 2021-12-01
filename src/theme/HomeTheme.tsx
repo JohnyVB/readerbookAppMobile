@@ -33,7 +33,7 @@ export const homeStyles = StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: 25,
         justifyContent: 'space-between',
-        marginVertical: 20
+        marginVertical: 10
     },
     buttonBook: {
         paddingHorizontal: 20,
@@ -43,7 +43,8 @@ export const homeStyles = StyleSheet.create({
     },
     btnText: {
         fontSize: 20,
-        color: 'white'
+        color: 'white',
+        paddingHorizontal: 30
     },
     viewContainer: {
         height: 2000

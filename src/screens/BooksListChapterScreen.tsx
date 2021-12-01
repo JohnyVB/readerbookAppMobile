@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { BookListCard } from '../components/BookListCard';
 import { useBooks } from '../hooks/useBooks';
 import { BooksListStyles } from '../theme/BookListChapterTheme';
 
@@ -24,10 +25,10 @@ export const BooksListChapterScreen = () => {
                                 data={bookList}
                                 keyExtractor={(article) => article._id}
                                 showsVerticalScrollIndicator={false}
-                                renderItem={({item}) => <Text>{item._id}</Text>}
+                                renderItem={({item}) => <BookListCard book={item} />}
                                 style={BooksListStyles.flatList}
                                 ListHeaderComponent={
-                                    <Text style={BooksListStyles.flatListTitle}>Capitulos Recientes</Text>
+                                    <Text style={BooksListStyles.flatListTitle}>Capítulos Recientes</Text>
                                 }
                                 scrollEnabled
                             />

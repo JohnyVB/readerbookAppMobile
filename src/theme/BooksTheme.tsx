@@ -8,7 +8,8 @@ export const BooksStyles = StyleSheet.create({
         height: 400
     },
     flatListContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        height: 700
     },
     flatList: {
         height: 600
