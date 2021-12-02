@@ -7,7 +7,15 @@ import { LoadingScreen } from '../screens/LoadingScreen';
 import { HomeDrawer } from './HomeDrawer';
 import { ActivatorScreen } from '../screens/ActivatorScreen';
 
-const Stack = createStackNavigator();
+export type RootStackParams = {
+  LoadingScreen: undefined,
+  HomeDrawer: undefined,
+  ActivatorScreen: undefined,
+  LoginScreen: undefined,
+  RegisterScreen: undefined
+}
+
+const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigator = () => {
 

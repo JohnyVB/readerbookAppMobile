@@ -6,8 +6,9 @@ import { useForm } from '../hooks/useForm';
 import { loginStyles } from '../theme/LoginTheme';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { AuthContext } from '../context/auth/AuthContext';
+import { RootStackParams } from '../router/Navigator';
 
-interface Props extends StackScreenProps<any, any>{};
+interface Props extends StackScreenProps<RootStackParams, 'RegisterScreen'>{};
 
 export const RegisterScreen = ({ navigation }: Props) => {
 

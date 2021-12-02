@@ -6,8 +6,9 @@ import { activatorStyles } from '../theme/ActivatorTheme';
 import { useForm } from '../hooks/useForm';
 import { AppLogo } from '../components/AppLogo';
 import { AuthContext } from '../context/auth/AuthContext';
+import { RootStackParams } from '../router/Navigator';
 
-interface Props extends StackScreenProps<any, any>{};
+interface Props extends StackScreenProps<RootStackParams, 'ActivatorScreen'>{};
 
 export const ActivatorScreen = ({navigation}: Props) => {
 

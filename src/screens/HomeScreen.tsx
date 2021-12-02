@@ -9,8 +9,9 @@ import { BooksScreen } from './BooksScreen';
 import { SearchScreen } from './SearchScreen';
 import { BooksListChapterScreen } from './BooksListChapterScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { RootDrawerParams } from '../router/HomeDrawer';
 
-interface Props extends DrawerScreenProps<any, any>{};
+interface Props extends DrawerScreenProps<RootDrawerParams, 'HomeScreen'>{};
 
 export const HomeScreen = ({navigation}: Props) => {
 

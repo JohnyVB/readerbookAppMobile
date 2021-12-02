@@ -1,6 +1,9 @@
 import React from 'react';
-import { DrawerScreenProps } from '@react-navigation/drawer';
-import { Button, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+// import { DrawerScreenProps } from '@react-navigation/drawer';
+// import { RootDrawerParams } from '../router/HomeDrawer';
+
+// interface Props extends DrawerScreenProps<RootDrawerParams, 'SearchScreen'>{};
 
 interface Props {
     searchString: string;

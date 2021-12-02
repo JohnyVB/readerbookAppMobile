@@ -18,7 +18,7 @@ export const BookCard = ({book}: Props) => {
     return (
         <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => {}}
+            onPress={() => navigation.navigate('BookDetailScreen' as never , {bookId: book._id} as never)}
         >
             <View style={{...BookCardStyles.cardContainer, width: widthScreen * 0.4}}>
                 <View style={BookCardStyles.titleContainer}>

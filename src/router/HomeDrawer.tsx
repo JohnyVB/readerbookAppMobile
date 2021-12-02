@@ -8,8 +8,18 @@ import { ListScreen } from '../screens/ListScreen';
 import { drawerstyles } from '../theme/DrawerTheme';
 import { BooksScreen } from '../screens/BooksScreen';
 import { SearchScreen } from '../screens/SearchScreen';
+import { BookDetailScreen } from '../screens/BookDetailScreen';
 
-const Drawer = createDrawerNavigator();
+export type RootDrawerParams = {
+  HomeScreen: undefined,
+  ProfileScreen: undefined,
+  ListScreen: undefined,
+  BooksScreen: undefined,
+  SearchScreen: undefined,
+  BookDetailScreen: {bookId: string},
+}
+
+const Drawer = createDrawerNavigator<RootDrawerParams>();
 
 export const HomeDrawer =() => {
   return (
@@ -24,6 +34,7 @@ export const HomeDrawer =() => {
         <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
         <Drawer.Screen name="ListScreen" component={ListScreen} />
         <Drawer.Screen name="BooksScreen" component={BooksScreen} />
+        <Drawer.Screen name="BookDetailScreen" component={BookDetailScreen} />
         <Drawer.Screen name="SearchScreen" component={SearchScreen} />
     </Drawer.Navigator>
   );

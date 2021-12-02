@@ -1,8 +1,12 @@
+import { DrawerScreenProps } from '@react-navigation/drawer';
 import React from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { BookCard } from '../components/BookCard';
 import { useBooks } from '../hooks/useBooks';
+import { RootDrawerParams } from '../router/HomeDrawer';
 import { BooksStyles } from '../theme/BooksTheme';
+
+interface Props extends DrawerScreenProps<RootDrawerParams, 'BooksScreen'>{};
 
 export const BooksScreen = () => {
 

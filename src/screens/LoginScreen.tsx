@@ -6,8 +6,9 @@ import { loginStyles } from '../theme/LoginTheme';
 import { useForm } from '../hooks/useForm';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AuthContext } from '../context/auth/AuthContext';
+import { RootStackParams } from '../router/Navigator';
 
-interface Props extends StackScreenProps<any, any>{};
+interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'>{};
 
 export const LoginScreen = ({ navigation }: Props) => {
 
