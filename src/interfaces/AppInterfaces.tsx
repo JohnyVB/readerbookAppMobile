@@ -49,6 +49,10 @@ export interface BooksResponse {
     articulos: Articulo[];
 }
 
+export interface BookResponse {
+    articulo: Articulo;
+}
+
 export interface Articulo {
     description: string;
     image:       string;

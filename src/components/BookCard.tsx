@@ -16,6 +16,7 @@ export const BookCard = ({book}: Props) => {
     const navigation = useNavigation();
 
     return (
+        
         <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => navigation.navigate('BookDetailScreen' as never , {bookId: book._id} as never)}

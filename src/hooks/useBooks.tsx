@@ -4,7 +4,7 @@ import { BooksResponse, SimpArticulo, Articulo } from '../interfaces/AppInterfac
 
 export const useBooks = () => {
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const [bookList, setBookList] = useState<SimpArticulo[]>([]);
 
