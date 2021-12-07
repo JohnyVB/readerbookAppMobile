@@ -3,6 +3,7 @@ import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { SimpArticulo } from '../interfaces/AppInterfaces';
 import { bookListCardStyles } from '../theme/BookListCardTheme';
+import { useNavigation } from '@react-navigation/core';
 
 const widthScreen = Dimensions.get('window').width;
 
@@ -13,6 +14,8 @@ interface Props {
 export const BookListCard = ({book: {_id, title, image, type, chapter}}: Props) => {
 
     const imageBookDefault: string = 'https://res.cloudinary.com/dr0wxllnu/image/upload/v1615497606/backend-lector/default/defaultBook_njteg0.jpg';
+
+    const navigation = useNavigation();
 
     return (
           
@@ -26,6 +29,7 @@ export const BookListCard = ({book: {_id, title, image, type, chapter}}: Props) 
                 <View style={bookListCardStyles.imageContainer}>
                     <TouchableOpacity
                         activeOpacity={0.8}
+                        onPress={() => navigation.navigate('BookDetailScreen' as never , {bookId: _id} as never)}
                     >
                         <Image 
                             source={{uri: (image) ? image : imageBookDefault}}

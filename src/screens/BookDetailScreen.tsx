@@ -6,6 +6,7 @@ import { useBook } from '../hooks/useBook';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import { ChapterListScreen } from './ChapterListScreen';
 
 const widthScreen = Dimensions.get('window').width;
 
@@ -20,7 +21,7 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
 
     useEffect(() => {
         loadBook();
-    }, [bookId])
+    }, [bookId]);
 
     return (
         <View style={styles.container}>
@@ -73,6 +74,8 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
 
                                     </View>
                                 </View>
+
+                                <ChapterListScreen articleId={book!._id} />
 
                             </ScrollView>
                         )
