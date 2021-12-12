@@ -37,6 +37,9 @@ export const bookListCardStyles = StyleSheet.create({
     titleChapter: {
        marginVertical: 5 
     },
+    titleChapterText: {
+        marginHorizontal: 15
+    },
     typeContainer: {
         flex: 1,
         alignItems: 'center',

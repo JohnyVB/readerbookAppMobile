@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, StyleSheet, StatusBar, SafeAreaView, Image, Dimensions, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { RootDrawerParams } from '../router/HomeDrawer';
@@ -7,8 +7,10 @@ import { BackgroundLogin } from '../components/BackgroundLogin';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import { ChapterListScreen } from './ChapterListScreen';
+import { CommentListScreen } from './CommentListScreen';
 
 const widthScreen = Dimensions.get('window').width;
+
 
 interface Props extends DrawerScreenProps<RootDrawerParams, 'BookDetailScreen'> { };
 
@@ -18,6 +20,7 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
 
     const { bookId } = route.params;
     const { book, isLoading, loadBook } = useBook(bookId);
+    const [chapterToggle, setChapterToggle] = useState<boolean>(true);
 
     useEffect(() => {
         loadBook();
@@ -27,10 +30,6 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
         <View style={styles.container}>
 
             <BackgroundLogin />
-
-            
-            
-
                 {
                     (isLoading)
                         ? (
@@ -59,7 +58,7 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
                                     </View>
                                     <View style={styles.infoContainer}>
                                         <Text style={styles.title}>{book?.title}</Text>
-                                        <Text style={styles.date}>{moment(book?.date).format('ll')}</Text>
+                                        <Text style={styles.date}>{moment(book?.date).fromNow()}</Text>
                                         <Text style={styles.progress}>{book?.progress}</Text>
                                         <Text style={styles.description}>{book?.description}</Text>
 
@@ -76,13 +75,12 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
                                 </View>
 
                                 <ChapterListScreen articleId={book!._id} />
+                                <CommentListScreen entity='article' entityId={book!._id} all={false} />
 
                             </ScrollView>
                         )
                 }
 
-                        
-            
         </View>
    
     );

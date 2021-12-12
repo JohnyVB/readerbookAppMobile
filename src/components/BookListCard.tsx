@@ -48,7 +48,7 @@ export const BookListCard = ({book: {_id, title, image, type, chapter}}: Props) 
                                         <TouchableOpacity
                                             onPress={() => {}}
                                         >
-                                            <Text>{item.number} - {item.title}</Text>
+                                            <Text numberOfLines={1} style={bookListCardStyles.titleChapterText} >{item.number} - {item.title}</Text>
                                         </TouchableOpacity>
                                     </View>
                                 ))

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import lectorApi from "../api/lectorApi";
-import { Capitulo, Chapter, ChaptersResponse, SimChapter } from '../interfaces/AppInterfaces';
+import { Chapter, ChaptersResponse, SimChapter } from '../interfaces/AppInterfaces';
 
 interface Props {
     articleId: string;
@@ -27,7 +27,6 @@ export const useChapters = ({articleId}: Props) => {
 
    useEffect(() => {
        loadChapters();
-       
    }, []);
 
    return {

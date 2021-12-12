@@ -51,6 +51,10 @@ export const loginStyles = StyleSheet.create({
         fontSize: 20,
         color: 'white'
     },
+    activity : {
+        marginHorizontal: 20,
+        marginVertical: 4
+    },
     btnRegisterContainer: {
         alignItems: 'flex-end',
         marginTop: 50

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { Alert, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppLogo } from '../components/AppLogo';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { loginStyles } from '../theme/LoginTheme';
@@ -14,12 +14,28 @@ export const LoginScreen = ({ navigation }: Props) => {
 
     const {singIn, removeError, errorMessage} = useContext(AuthContext);
 
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+
     const {email, password, onChangeForm} = useForm({
         email: '',
         password: ''
     });
 
     const onLogin = () => {
+        setIsLogin(true);
+        if (!email || !password) {
+            return Alert.alert(
+            'Campos vacios', 
+              'Por favor ingrese sus datos completos',
+              [
+                  {
+                      text: 'Ok',
+                      onPress: removeError
+                  }
+              ]
+            );
+        }
+
         singIn({email, password});
         Keyboard.dismiss();
     }
@@ -35,8 +51,8 @@ export const LoginScreen = ({ navigation }: Props) => {
                       onPress: removeError
                   }
               ]
-            );
-          return;  
+            ); 
+            return setIsLogin(false);
         }
     }, [errorMessage])
 
@@ -90,8 +106,13 @@ export const LoginScreen = ({ navigation }: Props) => {
                         activeOpacity={0.8}
                         style={loginStyles.btn}
                         onPress={onLogin}
+                        disabled={errorMessage.length > 0}
                     >
-                        <Text style={loginStyles.btnText}>Ingresar</Text>
+                        {
+                            (!isLogin)
+                                ? <Text style={loginStyles.btnText}>Ingresar</Text>
+                                : <ActivityIndicator color="white" style={loginStyles.activity} size={20} />
+                        }
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={0.8}

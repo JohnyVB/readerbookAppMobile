@@ -12,7 +12,7 @@ export const ChapterListScreen = ({articleId}: Props) => {
     const {chapterList, isloading, loadChapters} = useChapters({articleId});
     return (
         <View style={styles.container}>
-            <View style={styles.controllerListContainer}>
+            {/* <View style={styles.controllerListContainer}>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.btnOrderOne}
@@ -28,6 +28,10 @@ export const ChapterListScreen = ({articleId}: Props) => {
                 >
                     <Icon name="caret-down-outline" style={styles.iconTwo} size={30} />
                 </TouchableOpacity>
+            </View> */}
+
+            <View style={styles.titleChaptersContainer}>
+                <Text style={styles.titleChapters}>Capítulos</Text>
             </View>
 
             {
@@ -45,7 +49,10 @@ export const ChapterListScreen = ({articleId}: Props) => {
                         ? (
                             chapterList.map((item, index) =>(
                                 <View key={index} style={styles.chapterContainer}>
-                                    <Text style={styles.chapterText}>Capítulo: {item.number} - {item.title}</Text>
+                                    <View>
+                                        <Text numberOfLines={1} style={styles.chapterText}>{item.number} - {item.title}</Text>
+                                        {/* <Text numberOfLines={1} style={styles.chapterText}>12 - ascascascascsccascascascascscscascascascascascascasc</Text> */}
+                                    </View>
                                     <View style={styles.dateContainer}>
                                         <Icon name="calendar" size={20} style={styles.iconCalendar} /> 
                                         <Text style={styles.chapterText}>{moment(item.date).format('ll')}</Text>
@@ -78,6 +85,16 @@ const styles = StyleSheet.create({
         padding: 10, 
         marginHorizontal: 20,
         marginBottom: 10
+    },
+    titleChaptersContainer: {
+        flex: 1,
+        alignItems: 'center',
+        marginVertical: 5
+    },
+    titleChapters: {
+        fontSize: 25,
+        color: 'black',
+        fontWeight: 'bold'
     },
     controllerListContainer: {
         flex: 1,
@@ -132,15 +149,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#3B688C',
         marginVertical: 5,
         borderRadius: 5,
-        padding: 12,
+        padding: 8,
         justifyContent: 'space-between',
         alignItems: 'center'
     },
     chapterText: {
-        color: 'white'
+        color: 'white',
+        width: 140,
+        marginRight: 10
     },
     dateContainer: {
-        flexDirection: 'row'
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#3A3E40',
+        borderRadius: 5,
+        paddingVertical: 5
     },
     iconCalendar: {
         color: 'white',

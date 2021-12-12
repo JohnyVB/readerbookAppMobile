@@ -73,6 +73,7 @@ export const AuthProvider = ({children}: PropsProvider) => {
 
     const singIn = async({email, password}: LoginData) => {
         try {
+            
             const {data} = await lectorApi.post<UserResponse>('/auth/login', {email, password});
 
             if (data.usuario.validatorNumber) {
@@ -106,7 +107,7 @@ export const AuthProvider = ({children}: PropsProvider) => {
             dispatch({
                 type: 'addError',
                 payload: 'Información incorrecta'
-            });  
+            });            
         }
     };
 
