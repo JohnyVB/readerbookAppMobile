@@ -13,7 +13,7 @@ interface Props {
 
 export const CommentListScreen = ({entity, entityId, all}: Props) => {
 
-    const {commentsList, loadComments, isLoading} = useComments({entity, entityId});
+    const {commentsList, isLoading, saveComment, saveCommentState} = useComments({entity, entityId});
 
     const {comment, onChangeForm} = useForm({
         comment: ''
@@ -33,6 +33,8 @@ export const CommentListScreen = ({entity, entityId, all}: Props) => {
                 ]
             );
         }
+        saveComment(comment);
+        onChangeForm('', 'comment');
     }
 
     return (
@@ -56,15 +58,23 @@ export const CommentListScreen = ({entity, entityId, all}: Props) => {
                 <View style={styles.btnCommentContainer}>
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        style={styles.btn}
+                        style={styles.btnComment}
                         onPress={sendComment}
-                        disabled={false}
+                        disabled={saveCommentState}
                     >
                         {
-                            (true)
+                            (!saveCommentState)
                                 ? <Text style={styles.btnText}>Comentar</Text>
                                 : <ActivityIndicator color="white" style={styles.activityComment} size={20} />
                         }
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.btnAll}
+                        onPress={() => {}}
+                    >
+                         <Text style={styles.btnText}>Ver Todo</Text> 
                     </TouchableOpacity>
                 </View>
             </View>
@@ -160,14 +170,22 @@ const styles = StyleSheet.create({
         height: 60
     },
     btnCommentContainer: {
-        alignItems: 'flex-end'
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
-    btn: {
+    btnComment: {
         paddingHorizontal: 20,
         paddingVertical: 5,
         borderRadius: 5,
         backgroundColor: '#3B688C',
-        width: 120,
+        marginTop: 10
+    },
+    btnAll: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3A3E40',
         marginTop: 10
     },
     btnText: {
@@ -212,6 +230,7 @@ const styles = StyleSheet.create({
         top: 5
     },
     textComment: {
-        color: 'white'
+        color: 'white',
+        marginTop: 5
     }
 });

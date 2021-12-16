@@ -30,9 +30,13 @@ export const ChapterListScreen = ({articleId}: Props) => {
                 </TouchableOpacity>
             </View> */}
 
+            
+
             <View style={styles.titleChaptersContainer}>
                 <Text style={styles.titleChapters}>Capítulos</Text>
             </View>
+
+            
 
             {
                 (isloading)
@@ -73,6 +77,14 @@ export const ChapterListScreen = ({articleId}: Props) => {
                             </View>
                         )
             }
+
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btnAll}
+                onPress={() =>{}}
+            >
+                <Icon name="albums-outline" style={styles.iconTwo} size={30} />
+            </TouchableOpacity>
 
         </View>
     )
@@ -124,6 +136,18 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     iconTwo: {
+        color: 'white'
+    },
+    btnAll: {
+        flex: 1,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3A3E40',
+        marginVertical: 10
+    },
+    iconAll: {
         color: 'white'
     },
     activityContainer: {
