@@ -6,15 +6,19 @@ import { Comentario, CommentsResponse, SimpComment } from '../interfaces/AppInte
 interface Props {
     entity: string;
     entityId: string;
+    all?: boolean;
 }
 
-export const useComments = ({entity, entityId}: Props) => {
+export const useComments = ({entity, entityId, all = false}: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [saveCommentState, setSaveCommentState] = useState<boolean>(false);
     const [commentsList, setCommentsList] = useState<SimpComment[]>([]);
 
     const loadComments = async (order: number = -1, inicio: number = 0, fin: number = 10) => {
         setIsLoading(true);
+        if (all) {
+            fin = 0;
+        }
         const resp = await lectorApi.post<CommentsResponse>(`comments/${entity}/${entityId}/${order}`, {inicio, fin});
         mapCommentsList(resp.data.comentarios);
     }
@@ -36,6 +40,7 @@ export const useComments = ({entity, entityId}: Props) => {
         } catch (error: any) {
             console.log(error);            
             console.log(error?.response?.data?.msg);
+            setSaveCommentState(false);
             Alert.alert(
                 'Error al guardar comentario', 
                 error?.response?.data?.msg,

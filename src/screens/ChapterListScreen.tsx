@@ -2,41 +2,25 @@ import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon  from 'react-native-vector-icons/Ionicons';
 import { useChapters } from '../hooks/useChapters';
-import moment from 'moment';
+import { useNavigation } from '@react-navigation/core';
+import { ItemChapter } from '../components/ItemChapter';
 
 interface Props {
     articleId: string;
 }
 
 export const ChapterListScreen = ({articleId}: Props) => {
-    const {chapterList, isloading, loadChapters} = useChapters({articleId});
+
+    const {chapterList, isloading} = useChapters({articleId});
+
+    const navigation = useNavigation();
+
     return (
-        <View style={styles.container}>
-            {/* <View style={styles.controllerListContainer}>
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.btnOrderOne}
-                    onPress={() => loadChapters(-1)}
-                >
-                    <Icon name="caret-up-outline" style={styles.iconOne} size={30} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.btnOrderTwo}
-                    onPress={() => loadChapters(1)}
-                >
-                    <Icon name="caret-down-outline" style={styles.iconTwo} size={30} />
-                </TouchableOpacity>
-            </View> */}
-
-            
+        <View style={styles.container}>     
 
             <View style={styles.titleChaptersContainer}>
                 <Text style={styles.titleChapters}>Capítulos</Text>
             </View>
-
-            
 
             {
                 (isloading)
@@ -52,22 +36,7 @@ export const ChapterListScreen = ({articleId}: Props) => {
                     : (chapterList.length > 0)
                         ? (
                             chapterList.map((item, index) =>(
-                                <View key={index} style={styles.chapterContainer}>
-                                    <View>
-                                        <Text numberOfLines={1} style={styles.chapterText}>{item.number} - {item.title}</Text>
-                                        {/* <Text numberOfLines={1} style={styles.chapterText}>12 - ascascascascsccascascascascscscascascascascascascasc</Text> */}
-                                    </View>
-                                    <View style={styles.dateContainer}>
-                                        <Icon name="calendar" size={20} style={styles.iconCalendar} /> 
-                                        <Text style={styles.chapterText}>{moment(item.date).format('ll')}</Text>
-                                    </View>
-                                    <TouchableOpacity
-                                        onPress={() => {}}
-                                    >
-                                        <Icon name="play" size={30} style={styles.iconPlay} />
-                                    </TouchableOpacity>
-                                    
-                                </View>
+                                <ItemChapter key={index} item={item} />
                             ))
                         )
                         : (
@@ -81,9 +50,10 @@ export const ChapterListScreen = ({articleId}: Props) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnAll}
-                onPress={() =>{}}
+                onPress={() => navigation.navigate('ChapterScreen'as never, {bookId: articleId} as never)}
+                disabled={chapterList.length === 0}
             >
-                <Icon name="albums-outline" style={styles.iconTwo} size={30} />
+                <Icon name="albums-outline" style={styles.iconAll} size={30} />
             </TouchableOpacity>
 
         </View>
@@ -107,36 +77,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'black',
         fontWeight: 'bold'
-    },
-    controllerListContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginVertical: 5
-    },
-    btnOrderOne: {
-        flex: 1,
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 5,
-        borderRadius: 5,
-        backgroundColor: '#3A3E40',
-        marginRight: 5
-    },
-    iconOne: {
-        color: 'white'
-    },
-    btnOrderTwo: {
-        flex: 1,
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 5,
-        borderRadius: 5,
-        backgroundColor: '#3A3E40',
-        marginLeft: 5
-    },
-    iconTwo: {
-        color: 'white'
     },
     btnAll: {
         flex: 1,
@@ -166,35 +106,5 @@ const styles = StyleSheet.create({
     },
     iconEmty: {
         color: '#3A3E40'
-    },
-    chapterContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#3B688C',
-        marginVertical: 5,
-        borderRadius: 5,
-        padding: 8,
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    chapterText: {
-        color: 'white',
-        width: 140,
-        marginRight: 10
-    },
-    dateContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#3A3E40',
-        borderRadius: 5,
-        paddingVertical: 5
-    },
-    iconCalendar: {
-        color: 'white',
-        paddingHorizontal: 10
-    },
-    iconPlay: {
-        color: 'white',
-        paddingHorizontal: 10
     }
 });

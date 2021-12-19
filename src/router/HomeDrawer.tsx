@@ -9,6 +9,8 @@ import { drawerstyles } from '../theme/DrawerTheme';
 import { BooksScreen } from '../screens/BooksScreen';
 import { SearchScreen } from '../screens/SearchScreen';
 import { BookDetailScreen } from '../screens/BookDetailScreen';
+import { ChapterScreen } from '../screens/ChapterScreen';
+import { CommentsScreen } from '../screens/CommentsScreen';
 
 export type RootDrawerParams = {
   HomeScreen: undefined,
@@ -17,6 +19,8 @@ export type RootDrawerParams = {
   BooksScreen: undefined,
   SearchScreen: undefined,
   BookDetailScreen: {bookId: string},
+  ChapterScreen: {bookId: string},
+  CommentsScreen: {entity: string, entityId: string}
 }
 
 const Drawer = createDrawerNavigator<RootDrawerParams>();
@@ -36,6 +40,8 @@ export const HomeDrawer =() => {
         <Drawer.Screen name="BooksScreen" component={BooksScreen} />
         <Drawer.Screen name="BookDetailScreen" component={BookDetailScreen} />
         <Drawer.Screen name="SearchScreen" component={SearchScreen} />
+        <Drawer.Screen name="ChapterScreen" component={ChapterScreen} />
+        <Drawer.Screen name="CommentsScreen" component={CommentsScreen} />
     </Drawer.Navigator>
   );
 }

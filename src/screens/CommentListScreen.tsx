@@ -4,18 +4,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useComments } from '../hooks/useComments';
 import { useForm } from '../hooks/useForm';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/core';
+import { ItemComment } from '../components/ItemComment';
 
 interface Props {
     entity: string;
     entityId: string;
-    all: boolean;
 }
 
-export const CommentListScreen = ({entity, entityId, all}: Props) => {
+export const CommentListScreen = ({ entity, entityId }: Props) => {
 
-    const {commentsList, isLoading, saveComment, saveCommentState} = useComments({entity, entityId});
+    const { commentsList, saveComment, saveCommentState } = useComments({entity,entityId});
 
-    const {comment, onChangeForm} = useForm({
+    const navigation = useNavigation();
+
+    const { comment, onChangeForm } = useForm({
         comment: ''
     });
 
@@ -24,7 +27,7 @@ export const CommentListScreen = ({entity, entityId, all}: Props) => {
     const sendComment = () => {
         if (!comment) {
             return Alert.alert(
-            'Campo vacio', 
+                'Campo vacio',
                 'Por favor ingrese su comentario',
                 [
                     {
@@ -39,12 +42,13 @@ export const CommentListScreen = ({entity, entityId, all}: Props) => {
 
     return (
         <View style={styles.container}>
+
             <View style={styles.titleCommentsContainer}>
                 <Text style={styles.titleComments}>Comentarios</Text>
             </View>
 
             <View style={styles.inputCommentContainer}>
-                <TextInput 
+                <TextInput
                     style={styles.inputComment}
                     underlineColorAndroid={'#3B688C'}
                     autoCapitalize="none"
@@ -55,70 +59,44 @@ export const CommentListScreen = ({entity, entityId, all}: Props) => {
                     onSubmitEditing={sendComment}
                     value={comment}
                 />
-                <View style={styles.btnCommentContainer}>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.btnComment}
-                        onPress={sendComment}
-                        disabled={saveCommentState}
-                    >
-                        {
-                            (!saveCommentState)
-                                ? <Text style={styles.btnText}>Comentar</Text>
-                                : <ActivityIndicator color="white" style={styles.activityComment} size={20} />
-                        }
-                    </TouchableOpacity>
 
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.btnAll}
-                        onPress={() => {}}
-                    >
-                         <Text style={styles.btnText}>Ver Todo</Text> 
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.btnComment}
+                    onPress={sendComment}
+                    disabled={saveCommentState}
+                >
+                    {
+                        (!saveCommentState)
+                            ? <Text style={styles.btnText}>Comentar</Text>
+                            : <ActivityIndicator color="white" style={styles.activityComment} size={20} />
+                    }
+                </TouchableOpacity>
+
             </View>
 
             {
-                (isLoading)
+                (commentsList.length > 0)
                     ? (
-                        <View style={styles.activityContainer}>
-                            <ActivityIndicator 
-                                style={styles.activity}
-                                size={80}
-                                color="#3A3E40"
-                            />
+                        commentsList.map((item, index) => (
+                            <ItemComment key={index} item={item} />
+                        ))
+                    )
+                    : (
+                        <View style={styles.emptyContainer}>
+                            <Icon name="cafe" style={styles.iconEmty} size={60} />
+                            <Text>Aun no hay comentarios</Text>
                         </View>
                     )
-                    : (commentsList.length > 0)
-                        ? (
-                            commentsList.map((item, index) => (
-                                <View key={index} style={styles.commentContainer}>
-                                    <TouchableOpacity 
-                                        style={styles.imageContainer}
-                                        onPress={() => {}}
-                                    >
-                                        <Image 
-                                            source={{ uri: (item.user.image) ? item.user.image : imageUserDefault}}
-                                            style={styles.imageUser}
-                                        />
-                                    </TouchableOpacity>
-                                    <View style={styles.dataCommentContainer}>
-                                        <Text style={styles.textNameUser}>{item.user.name} {item.user.lastname}</Text>
-                                        <Text style={styles.textDateComment}>{moment(item.date).fromNow()}</Text>
-                                        <Text style={styles.textComment}>{item.text}</Text>
-                                    </View>
-                                    
-                                </View>
-                            ))
-                        )
-                        : (
-                            <View style={styles.emptyContainer}>
-                                <Icon name="cafe" style={styles.iconEmty} size={60} />
-                                <Text>Aun no hay comentarios</Text>
-                            </View>
-                        )
             }
+
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btnAll}
+                onPress={() => navigation.navigate('CommentsScreen' as never, { entity, entityId } as never)}
+            >
+                <Icon name="albums-outline" style={styles.iconAll} size={30} />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -126,9 +104,9 @@ export const CommentListScreen = ({entity, entityId, all}: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white', 
-        borderRadius: 5, 
-        padding: 10, 
+        backgroundColor: 'white',
+        borderRadius: 5,
+        padding: 10,
         marginHorizontal: 20,
         marginBottom: 10
     },
@@ -169,68 +147,33 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         height: 60
     },
-    btnCommentContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
     btnComment: {
+        flex: 1,
+        alignItems: 'center',
         paddingHorizontal: 20,
-        paddingVertical: 5,
+        paddingVertical: 8,
         borderRadius: 5,
         backgroundColor: '#3B688C',
-        marginTop: 10
-    },
-    btnAll: {
-        paddingHorizontal: 20,
-        paddingVertical: 5,
-        borderRadius: 5,
-        backgroundColor: '#3A3E40',
-        marginTop: 10
+        marginVertical: 10
     },
     btnText: {
         fontSize: 18,
         color: 'white'
     },
-    activityComment : {
+    activityComment: {
         marginHorizontal: 20,
         marginVertical: 4
     },
-    commentContainer: {
+    btnAll: {
         flex: 1,
-        backgroundColor: '#17A2B8',
-        flexDirection: 'row',
-        paddingVertical: 10,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 5,
         borderRadius: 5,
-        marginBottom: 10
+        backgroundColor: '#3A3E40',
+        marginVertical: 10
     },
-    imageContainer: {
-        
+    iconAll: {
+        color: 'white'
     },
-    imageUser: {
-        width: 65,
-        height: 65,
-        borderBottomRightRadius: 5,
-        borderTopRightRadius: 5
-    },
-    dataCommentContainer: {
-        flex: 1,
-        marginHorizontal: 5,
-        padding: 5
-    },
-    textNameUser: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        color: 'black'
-    },
-    textDateComment: {
-        position: 'absolute',
-        zIndex: 999,
-        alignSelf: 'flex-end',
-        top: 5
-    },
-    textComment: {
-        color: 'white',
-        marginTop: 5
-    }
 });

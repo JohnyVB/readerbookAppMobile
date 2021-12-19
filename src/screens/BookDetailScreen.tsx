@@ -12,7 +12,7 @@ import { CommentListScreen } from './CommentListScreen';
 const widthScreen = Dimensions.get('window').width;
 
 
-interface Props extends DrawerScreenProps<RootDrawerParams, 'BookDetailScreen'> { };
+interface Props extends DrawerScreenProps<RootDrawerParams, 'BookDetailScreen'> {};
 
 export const BookDetailScreen = ({ navigation, route }: Props) => {
 
@@ -75,7 +75,7 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
                                 </View>
 
                                 <ChapterListScreen articleId={book!._id} />
-                                <CommentListScreen entity='article' entityId={book!._id} all={false} />
+                                <CommentListScreen entity='article' entityId={book!._id} />
 
                             </ScrollView>
                         )

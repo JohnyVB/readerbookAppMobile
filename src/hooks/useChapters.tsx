@@ -4,14 +4,18 @@ import { Chapter, ChaptersResponse, SimChapter } from '../interfaces/AppInterfac
 
 interface Props {
     articleId: string;
+    all?: boolean;
 }
 
-export const useChapters = ({articleId}: Props) => {
+export const useChapters = ({articleId, all = false}: Props) => {
    const [isloading, setIsloading] = useState<boolean>(true);
    const [chapterList, setChapterList] = useState<SimChapter[]>([]);
 
    const loadChapters = async (order: number = -1, inicio: number = 0, fin: number = 10) => {
        setIsloading(true);
+       if (all) {
+           fin = 0;
+       }
        const resp = await lectorApi.post<ChaptersResponse>(`chapters/art/${articleId}/${order}`, {inicio, fin});
        mapChapterList(resp.data.capitulo);  
    }
