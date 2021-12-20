@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
-import { SimpArticulo } from '../interfaces/AppInterfaces';
+import { SimpArticulo, SimpArticuloSearch } from '../interfaces/AppInterfaces';
 import { BookCardStyles } from '../theme/BookCardTheme';
 
 const widthScreen = Dimensions.get('window').width;
 
 interface Props {
-    book: SimpArticulo;
+    book: SimpArticulo | SimpArticuloSearch;
 }
 
 export const BookCard = ({book}: Props) => {

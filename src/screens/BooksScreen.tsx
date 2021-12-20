@@ -37,7 +37,6 @@ export const BooksScreen = () => {
                                 }
                                 scrollEnabled
                             />
-                            
                         </View>
                     )
             }

@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import { Image, TextInput, TouchableOpacity, View, Keyboard, ScrollView, Text } from 'react-native';
+import { Image, TextInput, TouchableOpacity, View, Text } from 'react-native';
 import { AuthContext } from '../context/auth/AuthContext';
 import { homeStyles } from '../theme/HomeTheme';
-import { useForm } from '../hooks/useForm';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { BooksScreen } from './BooksScreen';
-import { SearchScreen } from './SearchScreen';
 import { BooksListChapterScreen } from './BooksListChapterScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { RootDrawerParams } from '../router/HomeDrawer';
@@ -22,16 +20,6 @@ export const HomeScreen = ({navigation}: Props) => {
 
     const [searchScreen, setSearchScreen] = useState('home');
 
-    const {searchString, onChangeForm} = useForm({
-        searchString: ''
-    });
-    
-    const onSearch = () => {
-        console.log({searchString});
-        setSearchScreen('search');
-        Keyboard.dismiss();
-    }
-
     return (
         <View style={homeStyles.container}>
             <BackgroundLogin />
@@ -45,17 +33,7 @@ export const HomeScreen = ({navigation}: Props) => {
                     />
                 </TouchableOpacity>
 
-                <TextInput 
-                    placeholder="Buscar...."
-                    placeholderTextColor="#3B688C"
-                    underlineColorAndroid="#3B688C"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={homeStyles.inputSearch}
-                    onChangeText={(value) => onChangeForm(value, 'searchString')}
-                    value={searchString}
-                    onSubmitEditing={onSearch}
-                />
+                <Text style={homeStyles.titleApp}>ReaderBook</Text>
              
                 <TouchableOpacity
                     onPress={() => navigation.toggleDrawer()}
@@ -81,6 +59,16 @@ export const HomeScreen = ({navigation}: Props) => {
 
                 <TouchableOpacity
                     activeOpacity={0.8}
+                    style={homeStyles.buttonSearch}
+                    onPress={() => navigation.navigate('SearchScreen' as never)}
+                >
+                    <Text style={homeStyles.btnText}>
+                        <Icon name="search-outline" color="white" size={20} />
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    activeOpacity={0.8}
                     style={homeStyles.buttonBook}
                     onPress={() => setSearchScreen('chapter')}
                 >
@@ -94,15 +82,9 @@ export const HomeScreen = ({navigation}: Props) => {
             <View style={homeStyles.viewContainer}>
                 {
                     (searchScreen === 'home')
-                        ? (
-                            <BooksScreen />
-                        )
-                        : (searchScreen === 'chapter')
-                            ? (
-                                <BooksListChapterScreen />
-                            )
-                            : <SearchScreen searchString={searchString} setSearchScreen={setSearchScreen} />
-                       
+                        ? <BooksScreen /> 
+                        : <BooksListChapterScreen />
+                        
                 }
             </View>
                 

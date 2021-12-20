@@ -14,12 +14,15 @@ export const homeStyles = StyleSheet.create({
         width: 50,
         height: 50
     },
-    inputSearch:{
+    titleApp: {
         flex: 1,
         color: '#3A3E40',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        opacity: 0.7
+        alignSelf: 'center',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 41,
+        fontStyle: 'italic',
+        fontFamily: ''
     },
     btnImageUserScreen:{
         marginHorizontal: 10
@@ -32,7 +35,7 @@ export const homeStyles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'row',
         marginHorizontal: 25,
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         marginVertical: 10
     },
     buttonBook: {
@@ -40,6 +43,13 @@ export const homeStyles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 5,
         backgroundColor: '#3A3E40'
+    },
+    buttonSearch: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3B688C',
+        marginHorizontal: 20
     },
     btnText: {
         fontSize: 20,
