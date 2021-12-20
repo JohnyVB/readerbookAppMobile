@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AppLogo } from '../components/AppLogo';
 import { useForm } from '../hooks/useForm';
-import { loginStyles } from '../theme/LoginTheme';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { AuthContext } from '../context/auth/AuthContext';
 import { RootStackParams } from '../router/Navigator';
@@ -51,24 +50,24 @@ export const RegisterScreen = ({ navigation }: Props) => {
                 style={{flex: 1}}
                 behavior={(Platform.OS === 'ios') ? 'padding': 'height'}
             >
-                <View style={loginStyles.formContainer}>
+                <View style={styles.formContainer}>
                     {/* Logo */}
                     <AppLogo />
 
                     {/* Title */}
-                    <View style={loginStyles.containerTitle}>
-                        <Text style={loginStyles.title}>Registro</Text>
+                    <View style={styles.containerTitle}>
+                        <Text style={styles.title}>Registro</Text>
                     </View>
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <View style={{flex: 1, marginRight: 5}}>
                             {/* Input name */}
-                            <Text style={loginStyles.label}>Nombre</Text>
+                            <Text style={styles.label}>Nombre</Text>
                             <TextInput
                                 placeholder="Ingrese su nombre"
                                 placeholderTextColor="#3B688C"
                                 underlineColorAndroid="#3B688C"
-                                style={loginStyles.inputField}
+                                style={styles.inputField}
                                 autoCapitalize="words"
                                 autoCorrect={false}
                                 onChangeText={(value) => onChangeForm(value, 'name')}
@@ -79,12 +78,12 @@ export const RegisterScreen = ({ navigation }: Props) => {
 
                         <View style={{flex: 1, marginLeft: 5}}>
                             {/* Input lastname */}
-                            <Text style={loginStyles.label}>Apellido</Text>
+                            <Text style={styles.label}>Apellido</Text>
                             <TextInput
                                 placeholder="Ingrese su apellido"
                                 placeholderTextColor="#3B688C"
                                 underlineColorAndroid="#3B688C"
-                                style={loginStyles.inputField}
+                                style={styles.inputField}
                                 autoCapitalize="words"
                                 autoCorrect={false}
                                 onChangeText={(value) => onChangeForm(value, 'lastname')}
@@ -97,13 +96,13 @@ export const RegisterScreen = ({ navigation }: Props) => {
                    
 
                     {/* Input email */}
-                    <Text style={loginStyles.label}>Correo</Text>
+                    <Text style={styles.label}>Correo</Text>
                     <TextInput
                         placeholder="Ingrese su email"
                         keyboardType="email-address"
                         placeholderTextColor="#3B688C"
                         underlineColorAndroid="#3B688C"
-                        style={loginStyles.inputField}
+                        style={styles.inputField}
                         autoCapitalize="none"
                         autoCorrect={false}
                         onChangeText={(value) => onChangeForm(value, 'email')}
@@ -112,13 +111,13 @@ export const RegisterScreen = ({ navigation }: Props) => {
                     />
                     
                     {/* Input password */}
-                    <Text style={loginStyles.label}>Contraseña</Text>
+                    <Text style={styles.label}>Contraseña</Text>
                     <TextInput
                         placeholder="**********"
                         placeholderTextColor="#3B688C"
                         underlineColorAndroid="#3B688C"
                         secureTextEntry
-                        style={loginStyles.inputField}
+                        style={styles.inputField}
                         autoCapitalize="none"
                         autoCorrect={false}
                         onChangeText={(value) => onChangeForm(value, 'password')}
@@ -127,13 +126,13 @@ export const RegisterScreen = ({ navigation }: Props) => {
                     />
 
                     {/* Confirm password */}
-                    <Text style={loginStyles.label}>Confirmar contraseña</Text>
+                    <Text style={styles.label}>Confirmar contraseña</Text>
                     <TextInput
                         placeholder="**********"
                         placeholderTextColor="#3B688C"
                         underlineColorAndroid="#3B688C"
                         secureTextEntry
-                        style={loginStyles.inputField}
+                        style={styles.inputField}
                         autoCapitalize="none"
                         autoCorrect={false}
                         onChangeText={(value) => onChangeForm(value, 'cpassword')}
@@ -142,17 +141,17 @@ export const RegisterScreen = ({ navigation }: Props) => {
                     />
                     
                     {/* Button crear cuenta y cancelar */}
-                    <View style={loginStyles.btnLoginContainer}>
+                    <View style={styles.btnLoginContainer}>
                         <TouchableOpacity
                             // disabled={true}
                             activeOpacity={0.8}
-                            style={loginStyles.btn}
+                            style={styles.btn}
                             onPress={onRegister}
                         >
                             {
                                 (isCreating)
                                     ? <ActivityIndicator size={20} color="white" />
-                                    : <Text style={loginStyles.btnText}>Crear</Text>
+                                    : <Text style={styles.btnText}>Crear</Text>
                                     
                             }
                             
@@ -160,10 +159,10 @@ export const RegisterScreen = ({ navigation }: Props) => {
 
                         <TouchableOpacity
                             activeOpacity={0.8}
-                            style={loginStyles.btnReturn}
+                            style={styles.btnReturn}
                             onPress={() => navigation.replace('LoginScreen')}
                         >
-                            <Text style={loginStyles.btnText}>Cancelar</Text>
+                            <Text style={styles.btnText}>Cancelar</Text>
                         </TouchableOpacity>
                     </View>
                  
@@ -174,3 +173,70 @@ export const RegisterScreen = ({ navigation }: Props) => {
         </>
     )
 }
+
+export const styles = StyleSheet.create({
+    formContainer: {
+        flex: 1,
+        marginHorizontal: 30,
+        justifyContent: 'center',
+        height: 600,
+        marginBottom: 110
+    },
+    containerTitle: {
+        alignItems: 'center'
+    },
+    title: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginTop: 20,
+        color: '#3A3E40'
+    },
+    label: {
+        marginTop: 25,
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#3A3E40'
+    },
+    inputField: {
+        color: '#3A3E40',
+        backgroundColor: '#F8F7F7',
+        borderRadius: 10,
+        opacity: 0.7
+    },
+    btnLoginContainer:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 50
+    },
+    btn: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3B688C'
+    },
+    btnNew: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3A3E40'
+    },
+    btnText: {
+        fontSize: 20,
+        color: 'white'
+    },
+    activity : {
+        marginHorizontal: 20,
+        marginVertical: 4
+    },
+    btnRegisterContainer: {
+        alignItems: 'flex-end',
+        marginTop: 50
+    },
+    btnReturn: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#CC3D3D',
+    }
+});

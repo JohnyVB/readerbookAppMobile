@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import { Image, TextInput, TouchableOpacity, View, Text } from 'react-native';
+import { Image, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { AuthContext } from '../context/auth/AuthContext';
-import { homeStyles } from '../theme/HomeTheme';
 import { BackgroundLogin } from '../components/BackgroundLogin';
 import { BooksScreen } from './BooksScreen';
 import { BooksListChapterScreen } from './BooksListChapterScreen';
@@ -21,65 +20,65 @@ export const HomeScreen = ({navigation}: Props) => {
     const [searchScreen, setSearchScreen] = useState('home');
 
     return (
-        <View style={homeStyles.container}>
+        <View style={styles.container}>
             <BackgroundLogin />
-            <View style={homeStyles.headerHomeContainer}>
+            <View style={styles.headerHomeContainer}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('HomeScreen')}
                 >
                     <Image 
                         source={{uri: imageIcon}}
-                        style={homeStyles.ImageIcon}
+                        style={styles.ImageIcon}
                     />
                 </TouchableOpacity>
 
-                <Text style={homeStyles.titleApp}>ReaderBook</Text>
+                <Text style={styles.titleApp}>ReaderBook</Text>
              
                 <TouchableOpacity
                     onPress={() => navigation.toggleDrawer()}
-                    style={homeStyles.btnImageUserScreen}
+                    style={styles.btnImageUserScreen}
                 >
                     <Image 
                         source={{ uri: (user?.image) ? user?.image : imageUserDefault}}
-                        style={homeStyles.imageUserScreen}
+                        style={styles.imageUserScreen}
                     />
                 </TouchableOpacity>
             </View>
 
-            <View style={homeStyles.buttonsContainer}>
+            <View style={styles.buttonsContainer}>
                 <TouchableOpacity
                     activeOpacity={0.8}
-                    style={homeStyles.buttonBook}
+                    style={styles.buttonBook}
                     onPress={() => setSearchScreen('home')}
                 >
-                    <Text style={homeStyles.btnText}>
+                    <Text style={styles.btnText}>
                         <Icon name="library-outline" color="white" size={20} />
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     activeOpacity={0.8}
-                    style={homeStyles.buttonSearch}
+                    style={styles.buttonSearch}
                     onPress={() => navigation.navigate('SearchScreen' as never)}
                 >
-                    <Text style={homeStyles.btnText}>
+                    <Text style={styles.btnText}>
                         <Icon name="search-outline" color="white" size={20} />
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     activeOpacity={0.8}
-                    style={homeStyles.buttonBook}
+                    style={styles.buttonBook}
                     onPress={() => setSearchScreen('chapter')}
                 >
-                    <Text style={homeStyles.btnText}>
+                    <Text style={styles.btnText}>
                         <Icon name="book-outline" color="white" size={20} />
                     </Text>
                 </TouchableOpacity>
             </View>
 
 
-            <View style={homeStyles.viewContainer}>
+            <View style={styles.viewContainer}>
                 {
                     (searchScreen === 'home')
                         ? <BooksScreen /> 
@@ -92,3 +91,64 @@ export const HomeScreen = ({navigation}: Props) => {
         </View>
     )
 }
+
+export const styles = StyleSheet.create({
+    container:{
+        flex: 1
+    },
+    headerHomeContainer:{
+        flexDirection:'row',
+        marginVertical: 10, 
+        marginHorizontal: 10, 
+        justifyContent: 'space-between',
+    },
+    ImageIcon:{
+        width: 50,
+        height: 50
+    },
+    titleApp: {
+        flex: 1,
+        color: '#3A3E40',
+        alignSelf: 'center',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 41,
+        fontStyle: 'italic',
+        fontFamily: ''
+    },
+    btnImageUserScreen:{
+        marginHorizontal: 10
+    },
+    imageUserScreen: {
+        width: 50,
+        height: 50,
+        borderRadius: 100
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        marginHorizontal: 25,
+        justifyContent: 'space-around',
+        marginVertical: 10
+    },
+    buttonBook: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3A3E40'
+    },
+    buttonSearch: {
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 5,
+        backgroundColor: '#3B688C',
+        marginHorizontal: 20
+    },
+    btnText: {
+        fontSize: 20,
+        color: 'white',
+        paddingHorizontal: 30
+    },
+    viewContainer: {
+        height: 2000
+    }
+});

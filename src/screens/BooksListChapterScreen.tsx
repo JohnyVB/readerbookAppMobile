@@ -1,34 +1,33 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import { BookListCard } from '../components/BookListCard';
 import { useBooks } from '../hooks/useBooks';
-import { BooksListStyles } from '../theme/BookListChapterTheme';
 
 export const BooksListChapterScreen = () => {
 
     const {bookList, isLoading} = useBooks();
 
     return (
-        <View style={BooksListStyles.container}>
+        <View style={styles.container}>
             {
                 (isLoading)
                     ?(
                         <ActivityIndicator 
-                            style={BooksListStyles.activityIndicator}
+                            style={styles.activityIndicator}
                             size={80}
                             color="#FFFFFF"
                         />
                     )
                     :(
-                        <View style={BooksListStyles.flatListContainer}>
+                        <View style={styles.flatListContainer}>
                             <FlatList 
                                 data={bookList}
                                 keyExtractor={(article) => article._id}
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({item}) => <BookListCard book={item} />}
-                                style={BooksListStyles.flatList}
+                                style={styles.flatList}
                                 ListHeaderComponent={
-                                    <Text style={BooksListStyles.flatListTitle}>Capítulos Recientes</Text>
+                                    <Text style={styles.flatListTitle}>Capítulos Recientes</Text>
                                 }
                                 scrollEnabled
                             />
@@ -38,3 +37,26 @@ export const BooksListChapterScreen = () => {
         </View>
     )
 }
+
+export const styles = StyleSheet.create({
+    container:{
+        marginBottom: 20
+    },
+    activityIndicator: {
+        height: 400
+    },
+    flatListContainer: {
+        alignItems: 'center',
+        height: 700
+    },
+    flatList: {
+        height: 600
+    },
+    flatListTitle: {
+        marginVertical: 10, 
+        fontSize: 25, 
+        color: 'black', 
+        fontWeight: 'bold',
+        textAlign: 'center'
+    }
+});

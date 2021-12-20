@@ -96,7 +96,8 @@ export const SearchScreen = ({navigation}: Props) => {
                                     </View>
                                 ):(
                                     <View style={styles.infoContainer}>
-                                        <Text style={styles.flatListTitle}>No se encontraron datos por esta busqueda: {dataString}</Text>
+                                        <Text style={styles.flatListTitle}>No se encontraron datos por esta busqueda:</Text>
+                                        <Text style={styles.resultString}>{dataString}</Text>
                                         <Icon name="warning-outline" style={styles.iconWarning} size={50} />
                                     </View>
                                 )
@@ -145,8 +146,13 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     flatListTitle: {
-        marginVertical: 20, 
+        marginVertical: 10, 
         fontSize: 25, 
+        color: 'black',
+        textAlign: 'center'
+    },
+    resultString: {
+        fontSize: 20, 
         color: 'black', 
         fontWeight: 'bold',
         textAlign: 'center'
@@ -158,7 +164,7 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     infoContainer: {
-        alignItems: 'flex-start'
+        alignItems: 'center'
     },
     iconInfo: {
         color: 'white',
