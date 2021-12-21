@@ -60,7 +60,7 @@ export const BookDetailScreen = ({ navigation, route }: Props) => {
                                         <TouchableOpacity 
                                             style={styles.authorContainer}
                                             activeOpacity={0.5}
-                                            onPress={() => {}}
+                                            onPress={() => navigation.navigate('ProfileScreen' as never, {userBook: book?.user} as never)}
                                         >
                                             <Icon name="person-circle-outline" style={styles.iconAuthor} size={25} />
                                             <Text style={styles.authorText}>{book?.user.name} {book?.user.lastname}</Text>

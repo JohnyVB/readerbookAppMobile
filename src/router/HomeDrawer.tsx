@@ -10,10 +10,11 @@ import { SearchScreen } from '../screens/SearchScreen';
 import { BookDetailScreen } from '../screens/BookDetailScreen';
 import { ChapterScreen } from '../screens/ChapterScreen';
 import { CommentsScreen } from '../screens/CommentsScreen';
+import { Usuario } from '../interfaces/AppInterfaces';
 
 export type RootDrawerParams = {
   HomeScreen: undefined,
-  ProfileScreen: undefined,
+  ProfileScreen: {userBook: Usuario},
   ListScreen: undefined,
   BooksScreen: undefined,
   SearchScreen: undefined,
@@ -91,7 +92,7 @@ const ContentDrawe = ({navigation}: DrawerContentComponentProps) => {
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate('ProfileScreen')}
+          onPress={() => navigation.navigate('ProfileScreen', {userBook: user})}
         >
           <Text style={styles.btnText}>Perfil</Text>
         </TouchableOpacity>
