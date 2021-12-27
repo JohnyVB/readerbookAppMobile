@@ -31,6 +31,7 @@ export const useBooksUser = ({userId}: Props) => {
 
     return {
         bookList,
-        isLoading
+        isLoading,
+        loadBooks
     }
 }

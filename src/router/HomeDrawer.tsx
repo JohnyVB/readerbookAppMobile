@@ -15,7 +15,7 @@ import { Usuario } from '../interfaces/AppInterfaces';
 export type RootDrawerParams = {
   HomeScreen: undefined,
   ProfileScreen: {userBook: Usuario},
-  ListScreen: undefined,
+  ListScreen: {userId: string},
   BooksScreen: undefined,
   SearchScreen: undefined,
   BookDetailScreen: {bookId: string},
@@ -99,7 +99,7 @@ const ContentDrawe = ({navigation}: DrawerContentComponentProps) => {
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate('ListScreen')}
+          onPress={() => navigation.navigate('ListScreen', {userId: user?._id})}
         >
           <Text style={styles.btnText}>Listas</Text>
         </TouchableOpacity>

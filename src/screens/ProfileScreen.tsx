@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { RootDrawerParams } from '../router/HomeDrawer';
@@ -22,7 +22,11 @@ export const ProfileScreen = ({navigation, route}: Props) => {
 
     const userData: Usuario | null = (userBook) ? userBook : user;
 
-    const {bookList, isLoading} = useBooksUser({userId: userData!._id});
+    const {bookList, isLoading, loadBooks} = useBooksUser({userId: userData!._id});
+
+    useEffect(() => {
+        loadBooks();
+    }, [userData]);
 
     return (
         <View style={styles.container}>
