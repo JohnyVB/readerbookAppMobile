@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { RootDrawerParams } from '../router/HomeDrawer';
@@ -33,6 +33,11 @@ export const CommentsScreen = ({ navigation, route }: Props) => {
         saveComment(comment);
         onChangeForm('', 'comment');
     }
+
+    useEffect(() => {
+      loadComments();
+    }, [entityId]);
+    
 
     return (
         <View style={styles.container}>

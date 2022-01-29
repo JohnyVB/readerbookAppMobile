@@ -45,7 +45,7 @@ export const BookListCard = ({book: {_id, title, image, type, chapter}}: Props) 
                                     
                                     <View style={styles.titleChapter} key={item._id}>
                                         <TouchableOpacity
-                                            onPress={() => {}}
+                                            onPress={() => navigation.navigate('ViewScreen' as never, {bookId: _id, bookTitle: title, numChapter: item.number} as never)}
                                         >
                                             <Text numberOfLines={1} style={styles.titleChapterText} >{item.number} - {item.title}</Text>
                                         </TouchableOpacity>

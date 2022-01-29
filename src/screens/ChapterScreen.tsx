@@ -61,7 +61,7 @@ export const ChapterScreen = ({ navigation, route }: Props) => {
                             style={styles.flatList}
                             data={chapterList}
                             keyExtractor={(item) => item._id}
-                            renderItem={({item, index}) => <ItemChapter key={index} item={item} />}
+                            renderItem={({item, index}) => <ItemChapter key={index} bookId={bookId} item={item} />}
                             showsVerticalScrollIndicator={false}
                             ListHeaderComponent={ <Text style={styles.flatListTitle}>Todos los capítulos</Text>}
                         />            

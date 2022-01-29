@@ -11,6 +11,7 @@ import { BookDetailScreen } from '../screens/BookDetailScreen';
 import { ChapterScreen } from '../screens/ChapterScreen';
 import { CommentsScreen } from '../screens/CommentsScreen';
 import { Usuario } from '../interfaces/AppInterfaces';
+import { ViewScreen } from '../screens/ViewScreen';
 
 export type RootDrawerParams = {
   HomeScreen: undefined,
@@ -20,7 +21,8 @@ export type RootDrawerParams = {
   SearchScreen: undefined,
   BookDetailScreen: {bookId: string},
   ChapterScreen: {bookId: string},
-  CommentsScreen: {entity: string, entityId: string}
+  CommentsScreen: {entity: string, entityId: string},
+  ViewScreen: {bookId: string, numChapter: number}
 }
 
 const Drawer = createDrawerNavigator<RootDrawerParams>();
@@ -42,6 +44,7 @@ export const HomeDrawer =() => {
         <Drawer.Screen name="SearchScreen" component={SearchScreen} />
         <Drawer.Screen name="ChapterScreen" component={ChapterScreen} />
         <Drawer.Screen name="CommentsScreen" component={CommentsScreen} />
+        <Drawer.Screen name="ViewScreen" component={ViewScreen} />
     </Drawer.Navigator>
   );
 }

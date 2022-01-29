@@ -22,8 +22,6 @@ export const CommentListScreen = ({ entity, entityId }: Props) => {
         comment: ''
     });
 
-    const imageUserDefault: string = 'https://res.cloudinary.com/dr0wxllnu/image/upload/v1615497606/backend-lector/default/default-user_bur2mh.png';
-
     const sendComment = () => {
         if (!comment) {
             return Alert.alert(

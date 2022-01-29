@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import lectorApi from "../api/lectorApi";
 import { Chapter, ChaptersResponse, SimChapter } from '../interfaces/AppInterfaces';
 
@@ -8,7 +8,9 @@ interface Props {
 }
 
 export const useChapters = ({articleId, all = false}: Props) => {
+
    const [isloading, setIsloading] = useState<boolean>(true);
+
    const [chapterList, setChapterList] = useState<SimChapter[]>([]);
 
    const loadChapters = async (order: number = -1, inicio: number = 0, fin: number = 10) => {

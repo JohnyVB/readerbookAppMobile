@@ -3,12 +3,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import { SimChapter } from '../interfaces/AppInterfaces';
+import { useNavigation } from '@react-navigation/core';
 
 interface Props {
     item: SimChapter;
+    bookId: string;
 }
 
-export const ItemChapter = ({item}: Props) => {
+export const ItemChapter = ({bookId, item}: Props) => {
+
+    const navigation = useNavigation();
 
     return (
         <View style={styles.chapterContainer}>
@@ -20,7 +24,7 @@ export const ItemChapter = ({item}: Props) => {
                 <Text style={styles.chapterText}>{moment(item.date).format('ll')}</Text>
             </View>
             <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => navigation.navigate('ViewScreen' as never, {bookId, numChapter: item.number} as never)}
             >
                 <Icon name="play" size={30} style={styles.iconPlay} />
             </TouchableOpacity>

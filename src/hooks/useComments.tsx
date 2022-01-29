@@ -52,7 +52,7 @@ export const useComments = ({entity, entityId, all = false}: Props) => {
 
     useEffect(() => {
         loadComments();
-    }, []);
+    }, [entityId]);
 
     return {
         commentsList,

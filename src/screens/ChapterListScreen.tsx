@@ -36,7 +36,7 @@ export const ChapterListScreen = ({articleId}: Props) => {
                     : (chapterList.length > 0)
                         ? (
                             chapterList.map((item, index) =>(
-                                <ItemChapter key={index} item={item} />
+                                <ItemChapter key={index} bookId={articleId} item={item} />
                             ))
                         )
                         : (
