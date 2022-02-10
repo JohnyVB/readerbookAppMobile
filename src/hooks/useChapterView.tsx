@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import lectorApi from "../api/lectorApi";
 import { Chapter, ChaptersResponse } from '../interfaces/AppInterfaces';
+import { useErrorsHttp } from "./useErrorsHttp";
 
 interface Props {
     articleId: string;
@@ -20,10 +21,14 @@ export const useChapterView = ({ articleId, numChapter }: Props) => {
     const [startChapter, setStartChapter] = useState<boolean>(false); 
 
     const getAllChapters = async () => {
-        setIsloading(true);
-        const resp = await lectorApi.post<ChaptersResponse>(`chapters/art/${articleId}/${1}`, { inicio: 0, fin: 0 });
-        setAllChapters([...resp.data.capitulo]);
-        getCurrentChapter(resp.data.capitulo);
+        try {
+            setIsloading(true);
+            const resp = await lectorApi.post<ChaptersResponse>(`chapters/art/${articleId}/${1}`, { inicio: 0, fin: 0 });
+            setAllChapters([...resp.data.capitulo]);
+            getCurrentChapter(resp.data.capitulo);
+        } catch (error: any) {
+            useErrorsHttp(error, 'useChapterView => getAllChapters');
+        }
     }
 
     const getCurrentChapter = async (arrayChapters: Chapter[]) => {

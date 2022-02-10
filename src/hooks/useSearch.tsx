@@ -1,6 +1,7 @@
 import { useState } from "react";
 import lectorApi from "../api/lectorApi";
 import { SearchResponse, SimpArticuloSearch, ArticuloSearch } from '../interfaces/AppInterfaces';
+import { useErrorsHttp } from "./useErrorsHttp";
 
 export const useSearch = () => {
 
@@ -17,7 +18,7 @@ export const useSearch = () => {
             const resp = await lectorApi.get<SearchResponse>(`searchs/${searchString}`);
             mapSearchList(resp.data.articulos);
         } catch (error: any) {
-            console.log(error.response.data.msg);
+            useErrorsHttp(error, 'useSearch => loadResults');
         }
     }
 

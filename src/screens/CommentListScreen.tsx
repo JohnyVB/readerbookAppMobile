@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useComments } from '../hooks/useComments';
@@ -14,7 +14,7 @@ interface Props {
 
 export const CommentListScreen = ({ entity, entityId }: Props) => {
 
-    const { commentsList, saveComment, saveCommentState } = useComments({entity,entityId});
+    const { commentsList, saveComment, saveCommentState, loadComments } = useComments({entity,entityId});
 
     const navigation = useNavigation();
 
@@ -37,6 +37,11 @@ export const CommentListScreen = ({ entity, entityId }: Props) => {
         saveComment(comment);
         onChangeForm('', 'comment');
     }
+
+    useEffect(() => {
+        loadComments();
+    }, [entity]);
+    
 
     return (
         <View style={styles.container}>

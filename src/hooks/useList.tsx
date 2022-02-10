@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import lectorApi from "../api/lectorApi";
 import { Lista, ListResponse } from '../interfaces/AppInterfaces';
+import { useErrorsHttp } from "./useErrorsHttp";
 
 interface Props {
     userId: string;
@@ -20,8 +21,7 @@ export const useList = ({userId}: Props) => {
             setList([...resp.data.listas]);
             setIsLoading(false);
         } catch (error: any) {
-            console.log(error);
-            console.log(error.response.data.msg);
+            useErrorsHttp(error, 'useList => loadList');
         }
     }
 
@@ -32,8 +32,7 @@ export const useList = ({userId}: Props) => {
             loadList();
             setLoadingDelete(false);
         } catch (error: any) {
-            console.log(error);
-            console.log(error.response.data.msg);
+            useErrorsHttp(error, 'useList => deleteItemList');
         }
     }
 
@@ -42,8 +41,7 @@ export const useList = ({userId}: Props) => {
             await lectorApi.patch(`lists/${listId}`);
             loadList();
         } catch (error: any) {
-            console.log(error);
-            console.log(error.response.data.msg);
+            useErrorsHttp(error, 'useList => deleteListProm');
         }
     }
 
@@ -52,8 +50,7 @@ export const useList = ({userId}: Props) => {
             await lectorApi.put(`lists/editlist/${listId}`, {name: newNameList});
             loadList();
         } catch (error: any) {
-            console.log(error);
-            console.log(error.response.data.msg);
+            useErrorsHttp(error, 'useList => editNameListProm');
         }
     }
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Alert } from "react-native";
 import lectorApi from "../api/lectorApi";
 import { Comentario, CommentsResponse, SimpComment } from '../interfaces/AppInterfaces';
+import { useErrorsHttp } from "./useErrorsHttp";
 
 interface Props {
     entity: string;
@@ -15,12 +16,16 @@ export const useComments = ({entity, entityId, all = false}: Props) => {
     const [commentsList, setCommentsList] = useState<SimpComment[]>([]);
 
     const loadComments = async (order: number = -1, inicio: number = 0, fin: number = 10) => {
-        setIsLoading(true);
-        if (all) {
-            fin = 0;
+        try {
+            setIsLoading(true);
+            if (all) {
+                fin = 0;
+            }
+            const resp = await lectorApi.post<CommentsResponse>(`comments/${entity}/${entityId}/${order}`, {inicio, fin});
+            mapCommentsList(resp.data.comentarios);
+        } catch (error: any) {
+            useErrorsHttp(error, 'useComments => loadComments');
         }
-        const resp = await lectorApi.post<CommentsResponse>(`comments/${entity}/${entityId}/${order}`, {inicio, fin});
-        mapCommentsList(resp.data.comentarios);
     }
 
     const mapCommentsList = (commentList: Comentario[]) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import lectorApi from "../api/lectorApi";
 import { ArticuloUser, BooksUserResponse, SimpArticuloUser } from "../interfaces/AppInterfaces";
+import { useErrorsHttp } from "./useErrorsHttp";
 
 interface Props {
     userId: string;
@@ -12,9 +13,13 @@ export const useBooksUser = ({userId}: Props) => {
     const [bookList, setBookList] = useState<SimpArticuloUser[]>([]);
 
     const loadBooks = async() => {
-        setIsLoading(true);
-        const resp = await lectorApi.get<BooksUserResponse>(`articles/user/${userId}`);
-        mapBookList(resp.data.articulos);
+        try {
+            setIsLoading(true);
+            const resp = await lectorApi.get<BooksUserResponse>(`articles/user/${userId}`);
+            mapBookList(resp.data.articulos);
+        } catch (error: any) {
+            useErrorsHttp(error, 'useBooksUser => loadBooks');
+        }
     }
 
     const mapBookList = (bookList: ArticuloUser[]) => {

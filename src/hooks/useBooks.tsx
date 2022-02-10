@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import lectorApi from '../api/lectorApi';
 import { BooksResponse, SimpArticulo, Articulo } from '../interfaces/AppInterfaces';
+import { useErrorsHttp } from "./useErrorsHttp";
 
 export const useBooks = () => {
 
@@ -11,10 +12,14 @@ export const useBooks = () => {
     const nextPage = useRef(10);
 
     const loadBooks = async() => {
-        setIsLoading(true);
-        const resp = await lectorApi.post<BooksResponse>('/articles', {end: nextPage.current});
-        nextPage.current = (nextPage.current + 10);
-        mapBooksList(resp.data.articulos);
+        try {
+            setIsLoading(true);
+            const resp = await lectorApi.post<BooksResponse>('/articles', {end: nextPage.current});
+            nextPage.current = (nextPage.current + 10);
+            mapBooksList(resp.data.articulos);
+        } catch (error: any) {
+            useErrorsHttp(error, 'useBooks => loadBooks');
+        }
     }
 
     const mapBooksList = (bookList: Articulo[]) => {
