@@ -147,8 +147,8 @@ android {
         applicationId "com.readerbookappmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "2"
+        versionCode 3 // Cambios de version
+        versionName "3" // Cambios de version
     }
     splits {
         abi {
